@@ -20,14 +20,12 @@ private:
 
 	class CSV_Manager { // COMPOSITION
 	private:
-		//unordered_map<int, pair<int, int>> csv_data; // use this if we only want to have one tram of each type
-		vector<tuple<int, int, int>> csv_data; // otherwise use this for multiple trams of the same type
+		vector<tuple<int, int, int>> csv_data; // this is used for multiple trams of the same type
 		bool CheckCSVData(int tram, int line, int time);
 	public:
 		CSV_Manager();
 		bool ReadData();
 		bool WriteData(vector<string> &data);
-		//unordered_map<int, pair<int, int>> GetCSVData() const;
 		vector<tuple<int, int, int>> GetCSVData() const;
 	};
 
@@ -47,7 +45,6 @@ private:
 
 	unordered_map<int, vector<shared_ptr<Tram>>> simulationInfo; // binding trams to lines
 
-	//POLYMORPHISM
 	unordered_map<shared_ptr<Tram>, chrono::milliseconds> runtimeOutput; // map that stores travel time of all trams
 
 	unordered_map<int, queue<pair<shared_ptr<TramStop>, int>>> lines; 
@@ -64,7 +61,7 @@ private:
 
 	void Lines();
 
-	unique_ptr<Depot> Borek, Gaj, O³bin; // AGGREGATION
+	unique_ptr<Depot> Borek, Gaj, O³bin;
 
 	int virtualTramID; // every tram has its own id
 
