@@ -58,3 +58,29 @@ Pesa Twist 2010 NW 6, linia 5, czas przejazdu 4380,
  -->blocked intersection/red lights at Dworzec Glowny,
  -->blocked intersection/red lights at Krakowska,
  -->blocked intersection/red lights at Ksieze Male, total delay: 90
+Pesa Twist 2010 NW 1, linia 5, czas przejazdu 4285,
+ -->blocked intersection/red lights at Pl Legionow,
+ -->blocked intersection/red lights at Galeria Dominikanska,
+ -->blocked doors/passenger misbehave at Pl Wroblewskiego,
+ -->blocked intersection/red lights at Krakowska,
+ -->blocked intersection/red lights at Ksieze Male, total delay: 190
+Pesa Twist 2010 NW 2, linia 5, czas przejazdu 4355,
+ -->blocked intersection/red lights at Arkady Capitol,
+ -->blocked intersection/red lights at Ksieze Male, total delay: 60
+Pesa Twist 2010 NW 3, linia 5, czas przejazdu 4390,
+ -->blocked intersection/red lights at FAT,
+ -->blocked intersection/red lights at Arkady Capitol,
+ -->blocked intersection/red lights at Dworzec Glowny, total delay: 90
+Pesa Twist 2010 NW 4, linia 5, czas przejazdu 4590,
+ -->blocked doors/passenger misbehave at FAT,
+ -->blocked intersection/red lights at Arkady Capitol,
+ -->random accident at Galeria Dominikanska,
+ -->blocked intersection/red lights at Ksieze Male, total delay: 230
+Pesa Twist 2010 NW 5, linia 5, czas przejazdu 4423,
+ -->blocked intersection/red lights at FAT,
+ -->blocked intersection/red lights at Dworzec Glowny,
+ -->blocked intersection/red lights at Galeria Dominikanska,
+ -->blocked intersection/red lights at Krakowska, total delay: 120
+Pesa Twist 2010 NW 6, linia 5, czas przejazdu 4642,
+ -->blocked intersection/red lights at FAT,
+ -->blocked intersection/red lights at Krakowska, total delay: 60
