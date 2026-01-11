@@ -1,0 +1,24 @@
+name: C++ Build
+
+on:
+  push:
+    branches: [ temp ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup CMake
+      uses: lukka/get-cmake@v3
+
+    - name: Configure project
+      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build project
+      run: cmake --build build --config Release
