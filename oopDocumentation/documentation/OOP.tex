@@ -1,0 +1,116 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper]{geometry}
+\usepackage{polski}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{graphicx}[demo]
+\usepackage{tikz}
+\usepackage{float}
+\usepackage[usestackEOL]{stackengine} 
+\usepackage{caption}
+\usetikzlibrary{shapes,arrows,chains}
+\usetikzlibrary[calc]
+\linespread{1.3}
+\usepackage{listings}
+\usepackage{indentfirst}
+
+\begin{document}
+	\begin{titlepage}
+		\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+		\center % Center everything on the page
+		%	LOGO SECTION
+		\includegraphics[scale = 0.21]{pwr-logo.png}\\[2cm]
+		%	HEADING SECTIONS
+		\textsc{\Large Programowanie obiektowe }\\[0.5cm] 
+		\textsc{\large lab/projekt środa 18:55}\\[0.5cm]
+		%	TITLE SECTION
+		\HRule \\[0.4cm]
+		{ \huge \bfseries Tram traffic simulation
+		}\\[0.4cm] 
+		\HRule \\[0.8cm]
+		%	AUTHORS SECTION
+		\begin{minipage}{0.5\textwidth}
+			\begin{flushleft} \large
+				\emph{Autor:}\\
+				Dawid \textsc{Nowak} 273202 \\
+				
+			\end{flushleft}
+		\end{minipage}
+		~
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushright} \large
+				\emph{Prowadzący:} \\
+				mgr inż Tobiasz \textsc{Puślecki} % supervisor
+			\end{flushright}
+		\end{minipage}\\[5cm]
+		
+		\vfill % Fill the rest of the page with whitespace
+	\end{titlepage}
+	\newgeometry{bmargin=2cm, tmargin=2cm, lmargin=2cm, rmargin=2cm}
+	\newpage
+	
+	
+	
+	
+	\section{Team members}
+	Dawid Nowak (Leader)
+	
+	\section{Programming language}
+	C++ 14 
+	
+	\section{Description}
+	Program simulates tram traffic in Wrocław, Poland. 
+	Each tram, assigned to a specific route, starts its journey at a departure time.
+	Trams may meet each other on tracks which means one is stopping the other one from moving,
+	also there may happen incidents that causes delays; there might be heavy traffic at the intersection making the tram unable to leave the stop,
+	there might be passengers misbehaving, etc. Every tram runs in its own thread which measures actual time of the whole route.
+	
+	\subsection{Traffic manager}
+	There is a "Traffic manager" class that manages whole traffic, 
+	assigns trams to lines, begins the simulation, stores data from all objects. To make sure there is only one instance of this, it implements singleton design pattern. Inside Traffic Manager there is CSV Manager class that reads input data from CSV file and writes output after simulation ends.
+	
+	\subsection{Tram}
+	Tram class is an abstract class with a virtual method, which is implemented by all particular inheriting tram models. There are 6 trams available for user to choose from: Moderus Gamma LF 07 AC, Moderus Beta MF 24 AC, PESA Twist 146n, PESA Twist 2010Nw, Konstal 105Na and Protram 105 NWr. Each tram model takes different time at the stop (older trams have it longer and breaks down more often).
+	
+	\subsection{Depot}
+	In Wrocław currently there are 3 depots in everyday use. All 3 can be found in this program. Each depot stores different trams. Depot class implements factory design pattern.
+	
+	\subsection{Tram stop}
+	If everything works fine, tram should arrive and leave at the time specified in timetable. But there are incidents likely to happen. Stops have a significant impact on the tram traffic.
+	
+	\subsection{Timetable}
+	It contains all tram lines in our simulation, uses hash (unordered) map structure where the key is a next stop, and its value is departure time from that stop. There are included some of the most popular lines, such as line number 4 or number 2 and more.
+	
+	\section{In/out data}
+	
+	\subsection{Input}
+	Unique tram of user choice assigned to a specific line with a chosen departure time.
+	(there is no limit of possible trams running at once, but their departures have to fit all within one hour)
+	
+	\subsection{Output}
+	Logs of each tram journey (expected vs actual moving time, delay causes and places where delays occured).
+	
+	\section{UML diagrams}
+	
+	\subsection{class diagram}
+	\includegraphics[scale = 0.45]{classDiagram.png}\\[2cm]
+	
+	\subsection{tram stop state diagram}
+	\includegraphics[scale = 0.65]{tramStopStateDiagram.png}\\[2cm]
+	
+	\subsection{tram state diagram}
+	\includegraphics[scale = 0.65]{tramStateDiagram.png}\\[2cm]
+	
+	\subsection{sequence diagram}
+	\includegraphics[scale = 0.45]{sequenceDiagram.png}\\[2cm]
+	
+	\subsection{object diagram}
+	\includegraphics[scale = 0.30]{objDiagram.png}\\[2cm]
+	
+	\begin{thebibliography}{9}
+		N/A
+		
+	\end{thebibliography}
+	
+\end{document}

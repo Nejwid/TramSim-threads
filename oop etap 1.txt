@@ -1,0 +1,5 @@
+nr indeksu
+mgr inż.
+diagram obiektów
+csv wczytywanie
+relacje romb wypełniony/pusty
