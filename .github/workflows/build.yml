@@ -12,10 +12,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3.27.4
+      uses: actions/checkout@v3
 
     - name: Setup CMake
-      uses: lukka/get-cmake@v3
+      uses: lukka/get-cmake@v3.27.4
 
     - name: Configure project
       run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
