@@ -115,24 +115,15 @@ bool TrafficManager::CSV_Manager::ReadData() {
         getline(ss, cell, ';');
         int csv_tram_model = stoi(cell);
 
-        //cout << csv_tram_model << endl;
-
         getline(ss, cell, ';');
         int csv_line = stoi(cell);
-
-        //cout << csv_line << endl;
 
         getline(ss, cell, ';');
         int csv_departure = stoi(cell);
 
-        //cout << csv_departure << endl;
-
-        //if(this->CheckCSVData(csv_tram_model, csv_line, csv_departure))
-        //this->csv_data[csv_tram_model] = {csv_line, csv_departure};
         this->csv_data.push_back({ csv_tram_model, csv_line, csv_departure });
     }
     
-    //cout << "data read" << endl;
     cout << "symulacja w toku" << endl;
     file.close();
     return true;
