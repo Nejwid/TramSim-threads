@@ -96,7 +96,7 @@ bool TrafficManager::CSV_Manager::CheckCSVData(int tram, int line, int time){
 }
 
 bool TrafficManager::CSV_Manager::ReadData() {
-    ifstream file("data.csv");
+    ifstream file("../../../../resources/data.csv");
     
     if (!file.is_open()) {
         cout << "nie udalo sie otworzyc pliku" << endl;
@@ -139,7 +139,7 @@ bool TrafficManager::CSV_Manager::ReadData() {
 }
 
 bool TrafficManager::CSV_Manager::WriteData(vector<string> &data) {
-    ofstream file("dataOUT.csv", ios::app);
+    ofstream file("../../../../resources/dataOUT.csv", ios::app);
     if (!file.is_open()) {
         cout << "nie udalo sie otworzyc pliku" << endl;
         return false;
