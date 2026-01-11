@@ -1,4 +1,4 @@
-name: C++ Build
+name: basic build test runner
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3.27.4
 
     - name: Setup CMake
       uses: lukka/get-cmake@v3
