@@ -205,19 +205,11 @@ void TrafficManager::Lines() {
     };
 }
 
-/*
-unordered_map<int, pair<int, int>> TrafficManager::CSV_Manager::GetCSVData() const {
-    return this->csv_data;
-}*/
 vector<tuple<int, int, int>> TrafficManager::CSV_Manager::GetCSVData() const {
     return this->csv_data;
 }
 
 void TrafficManager::Setup() {
-    /*unordered_map<int, pair<int, int>> data = this->csv_manager->GetCSVData();
-    for (auto& it : data) {
-        this->CreateRoute(this->CreateTram(it.first), it.second.first, this->lines[it.second.first], it.second.second);
-    }*/
     vector<tuple<int, int, int>> data = this->csv_manager->GetCSVData(); 
     for (auto& [model, line, departure] : data) {
         this->CreateRoute(this->CreateTram(model), line, this->lines[line], departure);

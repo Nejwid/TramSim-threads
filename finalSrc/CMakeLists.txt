@@ -32,16 +32,6 @@ target_include_directories(TramSimulatorOOP_lib PUBLIC
 add_executable(TramSimulatorOOP_main "TramSimulatorOOP.cpp")
 target_link_libraries(TramSimulatorOOP_main TramSimulatorOOP_lib)
 
-enable_testing()
-add_subdirectory(
-    ${CMAKE_SOURCE_DIR}/../external/googletest
-    ${CMAKE_BINARY_DIR}/googletest
-)
-add_subdirectory(
-    ${CMAKE_SOURCE_DIR}/tests
-    ${CMAKE_BINARY_DIR}/tests
-)
-
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET TramSimulatorOOP_lib PROPERTY CXX_STANDARD 20)
 endif()

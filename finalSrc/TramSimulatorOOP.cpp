@@ -2,8 +2,7 @@
 
 using namespace std;
 
-int main()
-{
+int main(){
 	TrafficManager* mainManager = TrafficManager::GetInstance();
 	mainManager->ReadCSVData();
 	mainManager->Setup();
