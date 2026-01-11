@@ -1,0 +1,27 @@
+name: Code Quality & Security Analysis
+
+on:
+  push:
+    branches: [ temp ] 
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  code-analysis:
+    runs-on: windows-2022
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run cppcheck
+      run: |
+        cppcheck --enable=all --inconclusive --std=c++20 --force ./src
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: cpp
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
