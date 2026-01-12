@@ -9,7 +9,6 @@ project("TramSimulatorOOP")
 
 # library is easier to be tested
 add_library(TramSimulatorOOP_lib
-    "TramSimulatorOOP.cpp"
     "src/depots/Depot.cpp"
     "src/trams/Tram.cpp"
     "src/trams/TramModels.cpp"
@@ -35,3 +34,31 @@ target_link_libraries(TramSimulatorOOP_main TramSimulatorOOP_lib)
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET TramSimulatorOOP_lib PROPERTY CXX_STANDARD 20)
 endif()
+
+# ------------------- Catch2 tests -------------------
+include(FetchContent)
+
+# Pobieramy Catch2 automatycznie
+FetchContent_Declare(
+    catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    GIT_TAG v3.4.0
+)
+FetchContent_MakeAvailable(catch2)
+
+# Twój plik z testami (stworzyć folder 'tests' i plik test_main.cpp)
+add_executable(TramSimulatorOOP_tests
+    tests/test_main.cpp
+)
+
+# Linkujemy Twoją bibliotekę i Catch2
+target_link_libraries(TramSimulatorOOP_tests
+    PRIVATE
+    TramSimulatorOOP_lib
+    Catch2::Catch2WithMain  # catch tworzy main automatycznie
+)
+
+# Włączamy testy dla CTest / Visual Studio Test Explorer
+enable_testing()
+add_test(NAME TramSimulatorOOP_tests COMMAND TramSimulatorOOP_tests)
+

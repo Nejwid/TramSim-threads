@@ -12,7 +12,9 @@ TrafficManager* TrafficManager::GetInstance() { //  singleton
 
     std::lock_guard<std::mutex> lock(mtx);
 
-    instance.reset(new TrafficManager);
+    if (!instance) {
+        instance.reset(new TrafficManager);
+    }
 
     return instance.get(); //returns raw pointer
 }
