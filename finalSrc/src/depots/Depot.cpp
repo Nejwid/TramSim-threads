@@ -16,10 +16,10 @@ unique_ptr<Tram> GajDepot::TramNumberTwo(int nr) {
 	return make_unique<ModerusBeta>(nr);
 }
 
-unique_ptr<Tram> O³binDepot::TramNumberOne(int nr) { // po wroc³awiu jeŸd¿¹ sk³ady typu 2239+2240 (doczepa) ale uwzglêdniamy tylko numer boczny pierwszego wagonu 
+unique_ptr<Tram> OlbinDepot::TramNumberOne(int nr) { // po wroc³awiu jeŸd¿¹ sk³ady typu 2239+2240 (doczepa) ale uwzglêdniamy tylko numer boczny pierwszego wagonu 
 	return make_unique<Konstal>(nr);
 }
 
-unique_ptr<Tram> O³binDepot::TramNumberTwo(int nr) { // tak samo jak w przypadku Konstali
+unique_ptr<Tram> OlbinDepot::TramNumberTwo(int nr) { // tak samo jak w przypadku Konstali
 	return make_unique<Protram>(nr);
 }

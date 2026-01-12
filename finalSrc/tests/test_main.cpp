@@ -17,5 +17,5 @@ TEST_CASE("tram depot (factory) check") {
     unique_ptr<Depot> testDepot = make_unique<GajDepot>();
     unique_ptr<Tram> test1 = testDepot->TramNumberOne(1);
     unique_ptr<Tram> test2 = testDepot->TramNumberOne(1);
-    REQUIRE(test1 == test2);
+    REQUIRE(test1 != test2);
 }

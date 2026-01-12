@@ -31,7 +31,7 @@ TrafficManager::TrafficManager() : timetable(make_unique<Timetables>()), startSi
 
     this->Gaj = make_unique<GajDepot>();
 
-    this->O³bin = make_unique<O³binDepot>();
+    this->O³bin = make_unique<OlbinDepot>();
 }
 
 void TrafficManager::StartRoute(shared_ptr<Tram> tram, int departureTime, shared_future<void> future) { // using future to make sure all threads start at the same time 
