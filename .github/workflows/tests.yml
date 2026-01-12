@@ -1,4 +1,4 @@
-name: C++ tests (CMake + Catch2)
+name: unit testing validator
 
 on:
   push:
