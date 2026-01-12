@@ -1,0 +1,23 @@
+name: C++ tests (CMake + Catch2)
+
+on:
+  push:
+    branches: [ temp ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-2022
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Configure CMake
+      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+
+    - name: Build
+      run: cmake --build build --config Debug
+
+    - name: Run tests
+      run: ctest --test-dir build --verbose
