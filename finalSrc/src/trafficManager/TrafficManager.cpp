@@ -31,7 +31,7 @@ TrafficManager::TrafficManager() : timetable(make_unique<Timetables>()), startSi
 
     this->Gaj = make_unique<GajDepot>();
 
-    this->O³bin = make_unique<OlbinDepot>();
+    this->Olbin = make_unique<OlbinDepot>();
 }
 
 void TrafficManager::StartRoute(shared_ptr<Tram> tram, int departureTime, shared_future<void> future) { // using future to make sure all threads start at the same time 
@@ -185,9 +185,9 @@ shared_ptr<Tram> TrafficManager::CreateTram(int csv_id) {
     case 4:
         return this->Gaj->TramNumberTwo(this->virtualTramID);
     case 5:
-        return this->O³bin->TramNumberOne(this->virtualTramID);
+        return this->Olbin->TramNumberOne(this->virtualTramID);
     case 6:
-        return this->O³bin->TramNumberTwo(this->virtualTramID);
+        return this->Olbin->TramNumberTwo(this->virtualTramID);
     default:
         return nullptr;
     }
