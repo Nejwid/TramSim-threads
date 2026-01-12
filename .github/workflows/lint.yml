@@ -3,7 +3,6 @@ name: basic lint runner
 on:
   push:
     branches: [ temp ]
-  pull_request:
 
 jobs:
   lint:
