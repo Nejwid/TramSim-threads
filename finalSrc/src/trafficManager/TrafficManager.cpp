@@ -98,7 +98,14 @@ bool TrafficManager::CSV_Manager::CheckCSVData(int tram, int line, int time){
 }
 
 bool TrafficManager::CSV_Manager::ReadData() {
-    ifstream file("../../../../resources/data.csv");
+
+    int ret = system("curl -o data.csv https://raw.githubusercontent.com/Nejwid/TramSim-threads/refs/heads/master/resources/data.csv");
+    if (ret != 0) {
+        std::cerr << "Nie udalo sie pobrac input CSV data from github\n";
+        return 1;
+    }
+
+    ifstream file("data.csv");
     
     if (!file.is_open()) {
         cout << "nie udalo sie otworzyc pliku" << endl;
@@ -132,7 +139,7 @@ bool TrafficManager::CSV_Manager::ReadData() {
 }
 
 bool TrafficManager::CSV_Manager::WriteData(vector<string> &data) {
-    ofstream file("../../../../resources/dataOUT.csv", ios::app);
+    ofstream file("output/dataOUT.csv", ios::app);
     if (!file.is_open()) {
         cout << "nie udalo sie otworzyc pliku" << endl;
         return false;
