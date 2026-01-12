@@ -5,6 +5,7 @@ on:
     branches: [ temp ]
   pull_request:
 
+
 jobs:
   test:
     runs-on: windows-2022
@@ -20,4 +21,4 @@ jobs:
       run: cmake --build build --config Debug
 
     - name: Run tests
-      run: ctest --test-dir build --verbose
+      run: ctest --test-dir build -C Debug --verbose
