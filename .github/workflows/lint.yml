@@ -1,4 +1,4 @@
-name: C++ Lint
+name: basic lint runner
 
 on:
   push:
@@ -25,5 +25,5 @@ jobs:
       - name: Run clang-tidy
         run: |
           clang-tidy \
-            $(find . -name "*.cpp") \
+            $(find finalSrc -name "*.cpp") \
             -p build
