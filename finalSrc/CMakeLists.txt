@@ -7,6 +7,9 @@ endif()
 
 project("TramSimulatorOOP")
 
+# Directory for the output
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/output)
+
 # library is easier to be tested
 add_library(TramSimulatorOOP_lib
     "src/depots/Depot.cpp"

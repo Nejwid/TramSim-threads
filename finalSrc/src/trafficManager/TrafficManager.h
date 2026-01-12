@@ -7,6 +7,7 @@
 #include <future>
 #include <sstream>
 #include <fstream>
+#include <cstdlib>
 #include "Timetable.h"
 
 class Tram;
