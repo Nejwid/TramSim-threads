@@ -19,3 +19,13 @@ TEST_CASE("tram depot (factory) check") {
     unique_ptr<Tram> test2 = testDepot->TramNumberOne(1);
     REQUIRE(test1 != test2);
 }
+
+TEST_CASE("reading data from CSV file check") {
+    TrafficManager *temp = TrafficManager::GetInstance();
+    REQUIRE(temp->ReadCSVData());
+}
+
+TEST_CASE("writing output data into CSV file check") {
+    TrafficManager* temp = TrafficManager::GetInstance();
+    REQUIRE(temp->WriteCSVData());
+}
