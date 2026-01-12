@@ -1,0 +1,28 @@
+name: basic lint runner
+
+on:
+  push:
+    branches: [ temp ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake clang-tidy
+
+      - name: Configure CMake
+        run: |
+          cmake -S finalSrc -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+      - name: Run clang-tidy
+        run: |
+          clang-tidy \
+            $(find finalSrc -name "*.cpp") \
+            -p build

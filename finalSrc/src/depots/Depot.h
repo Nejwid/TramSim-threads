@@ -24,7 +24,7 @@ public:
 	unique_ptr<Tram> TramNumberTwo(int nr) override;
 };
 
-class O³binDepot : public Depot {
+class OlbinDepot : public Depot {
 public:
 	unique_ptr<Tram> TramNumberOne(int nr) override;
 	unique_ptr<Tram> TramNumberTwo(int nr) override;

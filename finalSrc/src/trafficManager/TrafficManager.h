@@ -61,7 +61,7 @@ private:
 
 	void Lines();
 
-	unique_ptr<Depot> Borek, Gaj, O³bin;
+	unique_ptr<Depot> Borek, Gaj, Olbin;
 
 	int virtualTramID; // every tram has its own id
 
