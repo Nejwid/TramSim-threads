@@ -1,3 +1,8 @@
+Link do pliku z danymi wejsciowymi:
+
+https://docs.google.com/spreadsheets/d/1z1qfByMeXVexu86RMqNV_y-lLqxCDK__2EPSja4yw_Q/edit?usp=sharing
+
+
 Aplikacja w języku C++ demonstrująca wykorzystanie wątków oraz mechanizmów synchronizacji w środowisku wielowątkowym.
 
 Projekt nie stanowi realnej symulacji ruchu tramwajowego. 
