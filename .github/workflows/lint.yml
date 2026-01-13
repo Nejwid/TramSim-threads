@@ -1,4 +1,4 @@
-name: basic lint runner
+name: LINT
 
 on:
   push:

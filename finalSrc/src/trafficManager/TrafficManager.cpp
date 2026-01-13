@@ -99,22 +99,31 @@ bool TrafficManager::CSV_Manager::CheckCSVData(int tram, int line, int time){
 
 bool TrafficManager::CSV_Manager::ReadData() {
 
+    const std::string csv_path = "build/data.csv";
+
+    // remove the old file if it already exists
+    if (std::filesystem::exists(csv_path)) {
+        std::filesystem::remove(csv_path);
+        std::cout << "removed the old file: " << csv_path << '\n';
+    }
+
+
     int ret = system("curl -o data.csv https://raw.githubusercontent.com/Nejwid/TramSim-threads/refs/heads/master/resources/data.csv");
     if (ret != 0) {
-        std::cerr << "Nie udalo sie pobrac input CSV data from github\n";
+        std::cerr << "failed to download input CSV data from github\n";
         return 1;
     }
 
     ifstream file("data.csv");
     
     if (!file.is_open()) {
-        cout << "nie udalo sie otworzyc pliku" << endl;
+        cout << "failed to open input file" << endl;
         return false;
     }
 
     string line;
    
-    cout << "wczytano kursy [tramwaj, linia, odjazd]" << endl;
+    cout << "wczytano kursy [tram, line, departure]" << endl;
 
     while (getline(file, line)) {
         cout << "[" << line << "]" << endl;
@@ -133,7 +142,7 @@ bool TrafficManager::CSV_Manager::ReadData() {
         this->csv_data.push_back({ csv_tram_model, csv_line, csv_departure });
     }
     
-    cout << "symulacja w toku" << endl;
+    cout << "simulation running" << endl;
     file.close();
     return true;
 }
@@ -150,7 +159,7 @@ bool TrafficManager::CSV_Manager::WriteData(vector<string> &data) {
     }
 
     file.close();
-    cout << "symulacja zakonczona dane zapisano w pliku csv" << endl;
+    cout << "simulation succesfully finished, output data can be found in '/ build / output' directory" << endl;
     return true;
 }
 
@@ -165,7 +174,7 @@ bool TrafficManager::WriteCSVData() {
 
         for (auto& tramwaj : it.second) {
 
-            string temp = tramwaj->TramModel() + ", linia " + to_string(it.first) + ", czas przejazdu " + to_string(runtimeOutput[tramwaj].count());
+            string temp = tramwaj->TramModel() + ", line " + to_string(it.first) + ", total moving time " + to_string(runtimeOutput[tramwaj].count());
 
             list<string> delays = tramwaj->GetDelays();
             for (auto& delay : delays) {
