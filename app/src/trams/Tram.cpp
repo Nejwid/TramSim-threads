@@ -51,11 +51,11 @@ int Tram::AddDelay() { // we can delay the tram, for ex. simulating heavy traffi
 	static uniform_int_distribution<> dis(1, 20); // 35% chance of delay
 
 	if (dis(gen) < 5) {
-		this->delays.push_back("blocked intersection/red lights at " + remainingStops.front().first->GetName());
+		this->delays.push_back("stuck at red lights at " + remainingStops.front().first->GetName());
 		return 3;
 	}
 	else if (dis(gen) == 5) {
-		this->delays.push_back("blocked doors/passenger misbehave at " + remainingStops.front().first->GetName());
+		this->delays.push_back("doors malfunction" + remainingStops.front().first->GetName());
 		return 7;
 	}
 	else if (dis(gen) == 6) {
