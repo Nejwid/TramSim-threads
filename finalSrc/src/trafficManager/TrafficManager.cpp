@@ -8,24 +8,26 @@ mutex TrafficManager::mtx;
 
 unique_ptr<TrafficManager> TrafficManager::instance = nullptr;
 
-TrafficManager* TrafficManager::GetInstance() { //  singleton
+TrafficManager* TrafficManager::GetInstance(int threadLimit) { //  singleton
 
     std::lock_guard<std::mutex> lock(mtx);
 
     if (!instance) {
-        instance.reset(new TrafficManager);
+        instance.reset(new TrafficManager(threadLimit));
     }
 
     return instance.get(); //returns raw pointer
 }
 
-TrafficManager::TrafficManager() : timetable(make_unique<Timetables>()), startSimulation(start.get_future().share()) {
+TrafficManager::TrafficManager(int threadlimit) : timetable(make_unique<Timetables>()), startSimulation(start.get_future().share()) {
 
     this->Lines();
 
-    this->csv_manager = make_unique<CSV_Manager>();
+    this->csv_manager = make_unique<CSV_Manager>(threadlimit);
 
     this->virtualTramID = 0;
+
+    this->threadsLimit = threadlimit;
 
     this->Borek = make_unique<BorekDepot>();
 
@@ -79,8 +81,8 @@ vector<string> TrafficManager::Stats() { //
     return dane;
 }
 
-TrafficManager::CSV_Manager::CSV_Manager() {
-
+TrafficManager::CSV_Manager::CSV_Manager(int limit) {
+    this->threadLimit = limit;
 }
 
 bool TrafficManager::CSV_Manager::CheckCSVData(int tram, int line, int time){
@@ -123,9 +125,9 @@ bool TrafficManager::CSV_Manager::ReadData() {
 
     string line;
    
-    cout << "wczytano kursy [tram, line, departure]" << endl;
+    cout << "input data [tram, line, departure]" << endl;
 
-    while (getline(file, line)) {
+    /*while (getline(file, line)) {
         cout << "[" << line << "]" << endl;
         stringstream ss(line);
         string cell;
@@ -140,6 +142,31 @@ bool TrafficManager::CSV_Manager::ReadData() {
         int csv_departure = stoi(cell);
 
         this->csv_data.push_back({ csv_tram_model, csv_line, csv_departure });
+    }*/
+    int tempLimit = this->threadLimit;
+    while (getline(file, line) && this->threadLimit>0) {
+        cout << "[" << line << "]" << endl;
+        stringstream ss(line);
+        string cell1, cell2, cell3;
+
+        if (!getline(ss, cell1, ';') || cell1.empty()) continue;
+        if (!getline(ss, cell2, ';') || cell2.empty()) continue;
+        if (!getline(ss, cell3, ';') || cell3.empty()) continue;
+
+        try {
+            int csv_tram_model = stoi(cell1);
+            int csv_line = stoi(cell2);
+            int csv_departure = stoi(cell3);
+
+            csv_data.push_back({ csv_tram_model, csv_line, csv_departure });
+        }
+        catch (const invalid_argument& e) {
+            continue;
+        }
+        catch (const out_of_range& e) {
+            continue;
+        }
+        this->threadLimit--;
     }
     
     cout << "simulation running" << endl;
@@ -150,7 +177,7 @@ bool TrafficManager::CSV_Manager::ReadData() {
 bool TrafficManager::CSV_Manager::WriteData(vector<string> &data) {
     ofstream file("output/dataOUT.csv", ios::app);
     if (!file.is_open()) {
-        cout << "nie udalo sie otworzyc pliku" << endl;
+        cout << "failed to open output file" << endl;
         return false;
     }
 
@@ -190,6 +217,9 @@ bool TrafficManager::WriteCSVData() {
 }
 
 shared_ptr<Tram> TrafficManager::CreateTram(int csv_id) {
+    if (this->virtualTramID > this->threadsLimit) {
+        return nullptr;
+    }
     this->virtualTramID++;
     switch (csv_id) {
     case 1:
@@ -228,8 +258,23 @@ vector<tuple<int, int, int>> TrafficManager::CSV_Manager::GetCSVData() const {
 }
 
 void TrafficManager::Setup() {
-    vector<tuple<int, int, int>> data = this->csv_manager->GetCSVData(); 
+    vector<tuple<int, int, int>> data = this->csv_manager->GetCSVData();
     for (auto& [model, line, departure] : data) {
-        this->CreateRoute(this->CreateTram(model), line, this->lines[line], departure);
+        auto tram = this->CreateTram(model);
+        if (!tram) {
+            continue;
+        }
+        this->CreateRoute(tram, line, this->lines[line], departure);
     }
+    for (auto& [line, trams] : simulationInfo) {
+        ValidateTrams(trams);
+    }
+}
+
+void TrafficManager::ValidateTrams(vector<shared_ptr<Tram>>& trams) {
+    trams.erase(
+        remove_if(trams.begin(), trams.end(),
+            [](const shared_ptr<Tram>& t) { return t == nullptr; }),
+        trams.end()
+    );
 }

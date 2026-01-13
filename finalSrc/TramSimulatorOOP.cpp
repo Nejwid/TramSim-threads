@@ -3,7 +3,7 @@
 using namespace std;
 
 int main(){
-	TrafficManager* mainManager = TrafficManager::GetInstance();
+	TrafficManager* mainManager = TrafficManager::GetInstance(3);
 	mainManager->ReadCSVData();
 	mainManager->Setup();
 	mainManager->RunSimulation();
