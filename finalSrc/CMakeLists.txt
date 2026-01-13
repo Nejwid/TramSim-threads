@@ -41,7 +41,7 @@ endif()
 # ------------------- Catch2 tests -------------------
 include(FetchContent)
 
-# Pobieramy Catch2 automatycznie
+# downloading fetch2 
 FetchContent_Declare(
     catch2
     GIT_REPOSITORY https://github.com/catchorg/Catch2.git
@@ -49,19 +49,18 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(catch2)
 
-# Twój plik z testami (stworzyć folder 'tests' i plik test_main.cpp)
+# executable containing tests
 add_executable(TramSimulatorOOP_tests
     tests/test_main.cpp
 )
 
-# Linkujemy Twoją bibliotekę i Catch2
 target_link_libraries(TramSimulatorOOP_tests
     PRIVATE
     TramSimulatorOOP_lib
-    Catch2::Catch2WithMain  # catch tworzy main automatycznie
+    Catch2::Catch2WithMain 
 )
 
-# Włączamy testy dla CTest / Visual Studio Test Explorer
+# enable testing so tests explorer and ctest can be used
 enable_testing()
 add_test(NAME TramSimulatorOOP_tests COMMAND TramSimulatorOOP_tests)
 

@@ -5,7 +5,7 @@
 Tram::Tram(int nr) : isOnRoute(false), tramID(nr), totalDelay(0) {}
 
 void Tram::SetRoute(queue<pair<shared_ptr<TramStop>, int>> timeatablee) { // set a line and departure time
-	if (!isOnRoute) {
+		if (!isOnRoute) {
 		this->remainingStops = timeatablee;
 		this->isOnRoute = true;
 	}

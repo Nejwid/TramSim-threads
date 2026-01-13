@@ -6,9 +6,9 @@
 // clean build -> build again to see tests changes
 
 TEST_CASE("singleton check") {
-    TrafficManager* test1 = TrafficManager::GetInstance();
+    TrafficManager* test1 = TrafficManager::GetInstance(0);
     REQUIRE(test1 != nullptr);
-    TrafficManager* test2 = TrafficManager::GetInstance();
+    TrafficManager* test2 = TrafficManager::GetInstance(0);
     REQUIRE(test2 != nullptr);
     REQUIRE(test1 == test2);
 }
@@ -21,11 +21,11 @@ TEST_CASE("tram depot (factory) check") {
 }
 
 TEST_CASE("reading data from CSV file check") {
-    TrafficManager *temp = TrafficManager::GetInstance();
+    TrafficManager *temp = TrafficManager::GetInstance(0);
     REQUIRE(temp->ReadCSVData());
 }
 
 TEST_CASE("writing output data into CSV file check") {
-    TrafficManager* temp = TrafficManager::GetInstance();
+    TrafficManager* temp = TrafficManager::GetInstance(0);
     REQUIRE(temp->WriteCSVData());
 }

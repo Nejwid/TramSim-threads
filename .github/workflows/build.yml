@@ -1,4 +1,4 @@
-name: basic build test runner
+name: BUILD
 
 on:
   push:

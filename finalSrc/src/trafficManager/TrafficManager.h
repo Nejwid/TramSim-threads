@@ -7,6 +7,7 @@
 #include <future>
 #include <sstream>
 #include <fstream>
+#include <filesystem>
 #include <cstdlib>
 #include "Timetable.h"
 
@@ -23,8 +24,9 @@ private:
 	private:
 		vector<tuple<int, int, int>> csv_data; // this is used for multiple trams of the same type
 		bool CheckCSVData(int tram, int line, int time);
+		int threadLimit;
 	public:
-		CSV_Manager();
+		CSV_Manager(int limit);
 		bool ReadData();
 		bool WriteData(vector<string> &data);
 		vector<tuple<int, int, int>> GetCSVData() const;
@@ -32,7 +34,7 @@ private:
 
 	unique_ptr<CSV_Manager> csv_manager;
 
-	TrafficManager();
+	TrafficManager(int threadLimit);
 
 	static mutex mtx;
 
@@ -62,15 +64,19 @@ private:
 
 	void Lines();
 
+	void ValidateTrams(vector<shared_ptr<Tram>>& trams); // if somehow there are nullptr trams, this method erases them from simulation
+
 	unique_ptr<Depot> Borek, Gaj, Olbin;
 
 	int virtualTramID; // every tram has its own id
+
+	int threadsLimit;
 
 	shared_ptr<Tram> CreateTram(int csv_id); 
 
 public:
 
-	static TrafficManager* GetInstance();
+	static TrafficManager* GetInstance(int threadlimit);
 
 	void Setup();
 
