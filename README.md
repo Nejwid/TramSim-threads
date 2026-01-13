@@ -1,5 +1,4 @@
-Docker image download command:  
-**docker pull nejwid/tramsim-threads:1.0**
+Uruchom polecenie `docker pull nejwid/tramsim-threads:1.0` aby pobrać obraz.
 
 Aplikacja w języku C++ demonstrująca wykorzystanie wątków oraz mechanizmów synchronizacji w środowisku wielowątkowym.
 
