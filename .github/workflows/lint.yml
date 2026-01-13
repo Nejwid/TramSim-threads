@@ -19,10 +19,10 @@ jobs:
 
       - name: Configure CMake
         run: |
-          cmake -S finalSrc -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+          cmake -S app -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
       - name: Run clang-tidy
         run: |
           clang-tidy \
-            $(find finalSrc -name "*.cpp") \
+            $(find app -name "*.cpp") \
             -p build

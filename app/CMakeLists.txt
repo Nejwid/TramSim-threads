@@ -10,6 +10,9 @@ project("TramSimulatorOOP")
 # Directory for the output
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/output)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # library is easier to be tested
 add_library(TramSimulatorOOP_lib
     "src/depots/Depot.cpp"
