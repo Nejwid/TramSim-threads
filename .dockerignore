@@ -1,0 +1,18 @@
+# system files and IDE
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln
+*.vcxproj*
+build/
+cmake-build-*/
+
+#temp files, logs
+*.log
+*.tmp
+*.swp
+*.DS_Store
+
+# local output
+output/
