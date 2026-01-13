@@ -14,5 +14,3 @@ bo wyniki są skrajnie niedeterministyczne.
 Idea tego programu polega na tym, żeby uruchomić na przykład 4-5 wątków, i wtedy
 zademonstrować działający mechanizm synchronizacji oraz bezpieczny dostęp do zasobów współdzielonych.
 
-PLIK .EXE to wersja tej samej logiki ale z GUI;
-w konsolowej wersji dane wpisujemy w pliku data.csv w formacie [TRAMWAJ (cyfry 1-6)  ; LINIA (dostępne linie w pliku timetable)  ; ODJAZD (liczby 1-60)]
