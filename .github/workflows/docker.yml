@@ -3,7 +3,6 @@ name: DOCKER
 on:
   push:
     branches: [ "temp" ]
-  pull_request:
 
 jobs:
   build:
