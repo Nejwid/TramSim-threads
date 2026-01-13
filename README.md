@@ -14,3 +14,5 @@ bo wyniki są skrajnie niedeterministyczne.
 Idea tego programu polega na tym, żeby uruchomić na przykład 4-5 wątków, i wtedy
 zademonstrować działający mechanizm synchronizacji oraz bezpieczny dostęp do zasobów współdzielonych.
 
+Dane wejściowe pobierane są z pliku /resources/data.csv
+
