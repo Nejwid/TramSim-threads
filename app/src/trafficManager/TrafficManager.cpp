@@ -186,7 +186,7 @@ bool TrafficManager::CSV_Manager::WriteData(vector<string> &data) {
     }
 
     file.close();
-    cout << "simulation succesfully finished, output data can be found in '/ build / output' directory" << endl;
+    cout << "simulation succesfully finished, output data can be found in '/output' directory" << endl;
     return true;
 }
 
