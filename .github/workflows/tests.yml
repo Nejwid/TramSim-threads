@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Configure CMake
-      run: cmake -S finalSrc -B build -DCMAKE_BUILD_TYPE=Debug
+      run: cmake -S app -B build -DCMAKE_BUILD_TYPE=Debug
 
     - name: Build
       run: cmake --build build --config Debug
