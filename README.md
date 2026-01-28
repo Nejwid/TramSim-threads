@@ -8,5 +8,5 @@ Projekt nie stanowi realnej symulacji ruchu tramwajowego.
 
 Demonstruje działający mechanizm synchronizacji oraz bezpieczny dostęp do zasobów współdzielonych.
 
-Dane wejściowe pobierane są z pliku /resources/data.csv 
+Dane wejściowe pobierane są z [pliku](/resources/data.csv) 
 
