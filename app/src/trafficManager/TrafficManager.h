@@ -38,6 +38,8 @@ private:
 
 	static mutex mtx;
 
+	mutex runtimeMtx;
+
 	static unique_ptr<TrafficManager> instance;
 
 	TrafficManager(const TrafficManager&) = delete;

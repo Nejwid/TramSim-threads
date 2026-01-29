@@ -40,9 +40,13 @@ void TrafficManager::StartRoute(shared_ptr<Tram> tram, int departureTime, shared
 
     future.get();
 
-    this_thread::sleep_for(chrono::milliseconds(departureTime * 10)); // 
+    this_thread::sleep_for(chrono::milliseconds(departureTime * 10)); //used sleep bc had to simulate delays smh so the 'trams' have to 'wait' at the stop
 
-    this->runtimeOutput[tram] = tram->RouteRuntime();
+    auto runtime = tram->RouteRuntime();
+
+    std::lock_guard<std::mutex> lock(mtx);
+
+    this->runtimeOutput[tram] = runtime;
 }
 
 void TrafficManager::CreateRoute(shared_ptr<Tram> tram, int line, queue<pair<shared_ptr<TramStop>, int>> timetable, int departureTime) {
