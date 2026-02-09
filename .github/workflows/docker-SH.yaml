@@ -1,0 +1,43 @@
+name: DOCKER
+
+on:
+  push:
+    branches: [ "temp" ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure CMake
+        run: cmake -S app -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build -j$(nproc)
+
+      - name: Run tests
+        run: ctest --test-dir build --output-on-failure
+
+  docker:
+    runs-on: self-hosted
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t tramsim:test .
+
+      - name: Run container
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/output:/app/output \
+            tramsim:test
+
+      - name: Verify output
+        run: |
+          test -d output && test "$(ls -A output)"
