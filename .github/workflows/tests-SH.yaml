@@ -1,0 +1,24 @@
+name: UNIT TESTING
+
+on:
+  push:
+    branches: [ temp ]
+  pull_request:
+    branches: [ temp ] 
+
+jobs:
+  test:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Configure CMake
+        run: cmake -S app -B build -DCMAKE_BUILD_TYPE=Debug
+
+      - name: Build
+        run: cmake --build build -j$(nproc)
+
+      - name: Run tests
+        run: ctest --test-dir build --output-on-failure
