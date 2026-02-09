@@ -1,4 +1,4 @@
-name: UNIT TESTING
+name: TESTING-self_hosted
 
 on:
   push:
