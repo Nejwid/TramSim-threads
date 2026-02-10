@@ -33,3 +33,6 @@ Makefile
 # old outdated files 
 /z-z-z
 /OOP
+
+# dont need the runner data
+/.github/self-hosted

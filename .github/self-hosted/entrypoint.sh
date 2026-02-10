@@ -1,26 +1,23 @@
 #!/bin/bash
 set -e
 
-# Make sure environment variables are set
-if [ -z "$REPO_URL" ] || [ -z "$RUNNER_TOKEN" ]; then
-  echo "ERROR: REPO_URL and RUNNER_TOKEN must be set"
+if [ -z "$GITHUB_REPO" ] || [ -z "$GITHUB_TOKEN" ]; then
+  echo "GITHUB_REPO and GITHUB_TOKEN must be set"
   exit 1
 fi
 
-# Configure the runner
-./config.sh \
-  --url "$REPO_URL" \
-  --token "$RUNNER_TOKEN" \
-  --name "self-hosted-docker-runner" \
-  --work "_work" \
-  --unattended \
-  --replace
+# Only configure if not already configured
+if [ ! -f "./.runner" ]; then
+  echo "Configuring runner..."
+  ./config.sh --unattended \
+    --url "https://github.com/$GITHUB_REPO" \
+    --token "$GITHUB_TOKEN" \
+    --replace \
+    --name "$(hostname)-runner" \
+    --work "_work"
+else
+  echo "Runner already configured. Skipping configuration."
+fi
 
-# Clean up on exit
-cleanup() {
-  ./config.sh remove --unattended --token "$RUNNER_TOKEN"
-}
-trap cleanup EXIT
-
-# Run the runner
-./run.sh
+# Start the runner
+exec ./run.sh
