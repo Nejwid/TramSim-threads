@@ -5,7 +5,7 @@ REG_TOKEN=$REG_TOKEN
 NAME=$NAME
 
 cd /home/docker/actions-runner || exit
-./config.sh --url https://github.com/${REPO} --token ${REG_TOKEN} --name ${NAME}
+./config.sh --url https://github.com/${REPO} --token ${REG_TOKEN} --name ${NAME} --disableupdate
 
 cleanup() {
   echo "Removing runner..."
