@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       - REPO=Nejwid/TramSim-threads
-      - REG_TOKEN=A6LUGTJ5FY6MMFS6Q3JXAY3JRSJOC
+      - REG_TOKEN=A6LUGTO6GA7Y6GUDNSW7EZLJRSN52
       - NAME=self-hosted-Latitude7410
     deploy:
       mode: replicated

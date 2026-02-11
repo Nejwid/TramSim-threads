@@ -10,9 +10,16 @@ RUN apt update -y && apt upgrade -y
 RUN useradd -m docker
 
 # Install necessary packages
-RUN apt install -y --no-install-recommends \
-    curl build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip jq
-RUN apt-get -yqq install ssh
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    cmake \
+    curl \
+    unzip \
+    ca-certificates \
+    sudo \
+    && rm -rf /var/lib/apt/lists/*
+
 # Set up the actions runner
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
     && curl -o actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
