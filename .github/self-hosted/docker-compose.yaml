@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  runner:
+    image: runner:latest # You can use this image or build your own
+    restart: always
+    environment:
+      - REPO=Nejwid/TramSim-threads
+      - REG_TOKEN=A6LUGTKSOSBKQLBQ3BAP2KLJRPZB2
+      - NAME=self-hosted-Latitude7410
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.4'
+          memory: 256M

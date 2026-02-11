@@ -1,23 +1,18 @@
 #!/bin/bash
-set -e
 
-if [ -z "$GITHUB_REPO" ] || [ -z "$GITHUB_TOKEN" ]; then
-  echo "GITHUB_REPO and GITHUB_TOKEN must be set"
-  exit 1
-fi
+REPO=$REPO
+REG_TOKEN=$REG_TOKEN
+NAME=$NAME
 
-# Only configure if not already configured
-if [ ! -f "./.runner" ]; then
-  echo "Configuring runner..."
-  ./config.sh --unattended \
-    --url "https://github.com/$GITHUB_REPO" \
-    --token "$GITHUB_TOKEN" \
-    --replace \
-    --name "$(hostname)-runner" \
-    --work "_work"
-else
-  echo "Runner already configured. Skipping configuration."
-fi
+cd /home/docker/actions-runner || exit
+./config.sh --url https://github.com/${REPO} --token ${REG_TOKEN} --name ${NAME}
 
-# Start the runner
-exec ./run.sh
+cleanup() {
+  echo "Removing runner..."
+  ./config.sh remove --unattended --token ${REG_TOKEN}
+}
+
+trap 'cleanup; exit 130' INT
+trap 'cleanup; exit 143' TERM
+
+./run.sh & wait $!
