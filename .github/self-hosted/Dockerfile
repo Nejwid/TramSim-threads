@@ -18,7 +18,7 @@ WORKDIR /actions-runner
 
 # Download GitHub Actions runner
 RUN curl -L -o runner.tar.gz \
-    https://github.com/actions/runner/releases/download/v2.314.1/actions-runner-linux-x64-2.314.1.tar.gz \
+    https://github.com/actions/runner/releases/download/v2.331.0/actions-runner-linux-x64-2.331.0.tar.gz \
     && tar xzf runner.tar.gz \
     && rm runner.tar.gz
 

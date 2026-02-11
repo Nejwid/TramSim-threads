@@ -11,9 +11,10 @@ fi
 ./config.sh \
   --url "$REPO_URL" \
   --token "$RUNNER_TOKEN" \
-  --name "self-hosted-docker-runner" \
+  --name "$NAME" \
   --work "_work" \
   --unattended \
+  --disableupdate \
   --replace
 
 # Clean up on exit
