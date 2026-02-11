@@ -1,38 +1,32 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
-ARG RUNNER_VERSION="2.331.0"
-ARG DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
+ENV RUNNER_ALLOW_RUNASROOT=1
 
-# Update and upgrade the system
-RUN apt update -y && apt upgrade -y
-
-# Add a user named docker
-RUN useradd -m docker
-
-# Install necessary packages
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    git \
-    cmake \
+# Install required packages
+RUN apt update && apt install -y \
     curl \
-    unzip \
+    git \
+    build-essential \
+    cmake \
     ca-certificates \
-    sudo \
+    libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Set up the actions runner
-RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
-    && curl -o actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
-    && tar xzf actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
+# Set working directory
+WORKDIR /actions-runner
 
-# Change ownership to docker user and install dependencies
-RUN chown -R docker /home/docker && /home/docker/actions-runner/bin/installdependencies.sh
+# Download GitHub Actions runner
+RUN curl -L -o runner.tar.gz \
+    https://github.com/actions/runner/releases/download/v2.331.0/actions-runner-linux-x64-2.331.0.tar.gz \
+    && tar xzf runner.tar.gz \
+    && rm runner.tar.gz
 
-# Copy the start script and make it executable
-COPY --chmod=+x entrypoint.sh /entrypoint.sh
+# Install runner dependencies
+RUN ./bin/installdependencies.sh
 
-# Switch to docker user
-USER docker
+# Copy entrypoint
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
 
-# Define the entrypoint
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]

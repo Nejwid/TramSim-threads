@@ -1,18 +1,27 @@
 #!/bin/bash
+set -e
 
-REPO=$REPO
-REG_TOKEN=$REG_TOKEN
-NAME=$NAME
+# Make sure environment variables are set
+if [ -z "$REPO_URL" ] || [ -z "$RUNNER_TOKEN" ]; then
+  echo "ERROR: REPO_URL and RUNNER_TOKEN must be set"
+  exit 1
+fi
 
-cd /home/docker/actions-runner || exit
-./config.sh --url https://github.com/${REPO} --token ${REG_TOKEN} --name ${NAME} --disableupdate
+# Configure the runner
+./config.sh \
+  --url "$REPO_URL" \
+  --token "$RUNNER_TOKEN" \
+  --name "$NAME" \
+  --work "_work" \
+  --unattended \
+  --disableupdate \
+  --replace
 
+# Clean up on exit
 cleanup() {
-  echo "Removing runner..."
-  ./config.sh remove --unattended --token ${REG_TOKEN}
+  ./config.sh remove --unattended --token "$RUNNER_TOKEN"
 }
+trap cleanup EXIT
 
-trap 'cleanup; exit 130' INT
-trap 'cleanup; exit 143' TERM
-
-./run.sh & wait $!
+# Run the runner
+./run.sh
