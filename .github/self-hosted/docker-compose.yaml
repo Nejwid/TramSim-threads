@@ -6,5 +6,5 @@ services:
     restart: always
     environment:
       - REPO_URL=https://github.com/Nejwid/TramSim-threads
-      - RUNNER_TOKEN=A6LUGTI3UP7BIBVWSAL5BPDJRT3DU
+      - RUNNER_TOKEN=A6LUGTJDX7N2IRVP7WWN36LJR562W
       - NAME=self-hosted-Latitude7410
